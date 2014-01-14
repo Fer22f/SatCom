@@ -6,6 +6,8 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import fer22f.mods.satcom.block.BlockSatellite;
 
 @Mod(modid="SatCom", name="SatCom", version="0.0.0")
@@ -20,6 +22,7 @@ public class SatCom {
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-            
+            GameRegistry.registerBlock(BlockSatellite, "satellite");
+            LanguageRegistry.addName(BlockSatellite, "Satellite");
     }
 }
