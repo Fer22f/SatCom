@@ -7,14 +7,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileSatellite extends TileEntity implements IInventory {
+public class TileEntitySatellite extends TileEntity implements IInventory {
 
 	private ItemStack[] contents = new ItemStack[3];
 	protected String customName;
 	
 	@Override
 	public int getSizeInventory() {
-		return 3;
+		return contents.length;
 	}
 
 	@Override
