@@ -19,9 +19,8 @@ public class GuiSatellite extends GuiContainer {
 		this.satellite = tile;
 	}
 
-	protected void drawGuiContainerForegroundLayer(float f, int i, int j) {
-		String s = this.satellite.isInvNameLocalized() ? this.satellite.getInvName() : I18n.getString(this.satellite.getInvName());
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+	protected void drawGuiContainerForegroundLayer(int i, int j) {
+        this.fontRenderer.drawString("Satellite", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
         this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 	}
 	

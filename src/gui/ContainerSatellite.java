@@ -19,7 +19,7 @@ public class ContainerSatellite extends Container {
 
         for (i = 0; i < 3; ++i)
         {
-           this.addSlotToContainer(new Slot(tile, i, 62, 17 + i * 18));
+           this.addSlotToContainer(new Slot(tile, i, 56 + (i * 23), 46));
         }
 
         for (i = 0; i < 3; ++i)

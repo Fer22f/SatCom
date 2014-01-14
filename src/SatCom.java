@@ -1,6 +1,7 @@
 package fer22f.mods.satcom;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -23,11 +24,14 @@ public class SatCom {
 	public static int satelliteID = 500;
 	public static Block BlockSatellite = new BlockSatellite();
 	
+	public static CreativeTabs tabSatellite = new CreativeTabSatellite();
+	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
             GameRegistry.registerBlock(BlockSatellite, "satellite");
             LanguageRegistry.addName(BlockSatellite, "Satellite");
             GameRegistry.registerTileEntity(TileEntitySatellite.class, "Satellite");
             NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+            LanguageRegistry.instance().addStringLocalization("itemGroup.SatCom", "SatCom");
     }
 }

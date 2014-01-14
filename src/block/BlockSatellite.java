@@ -29,7 +29,7 @@ public class BlockSatellite extends BlockContainer {
 		this.setHardness(10.0F);
 		this.setStepSound(soundMetalFootstep);
 		this.setUnlocalizedName("satellite");
-		this.setCreativeTab(CreativeTabs.tabRedstone);
+		this.setCreativeTab(SatCom.tabSatellite);
 		this.setTextureName("satcom:satellite");
 	}
 	
