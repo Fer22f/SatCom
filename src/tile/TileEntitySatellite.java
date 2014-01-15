@@ -6,11 +6,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntitySatellite extends TileEntity implements IInventory {
 
 	private ItemStack[] contents = new ItemStack[1];
+	public int ID;
 	protected String customName;
 	
 	@Override
@@ -67,6 +70,13 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
         {
             return null;
         }
+	}
+	
+	public Packet getDescriptionPacket() {
+	    NBTTagCompound tagCompound = new NBTTagCompound();
+	    writeToNBT(tagCompound);
+	    System.out.println("Get the description");
+	    return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tagCompound);
 	}
 
 	@Override
@@ -146,6 +156,8 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
         {
             this.customName = tag.getString("CustomName");
         }
+       
+       	this.ID = tag.getInteger("ID");
     }
 
     public void writeToNBT(NBTTagCompound tag)
@@ -170,6 +182,8 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
         {
             tag.setString("CustomName", this.customName);
         }
+        
+        tag.setInteger("ID", this.ID);
     }
 
 }

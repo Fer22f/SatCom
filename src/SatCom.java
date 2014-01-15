@@ -26,7 +26,8 @@ import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
 @Mod(modid="SatCom", name="SatCom", version="0.0.0")
-@NetworkMod(clientSideRequired=true)
+@NetworkMod(clientSideRequired=true, serverSideRequired=false,
+channels={"IDUpdate"}, packetHandler = PacketHandler.class)
 public class SatCom {
 
 	@Instance(value = "SatCom")
