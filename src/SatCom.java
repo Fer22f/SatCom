@@ -17,6 +17,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import fer22f.mods.satcom.block.BlockNiobiumOre;
 import fer22f.mods.satcom.block.BlockSatellite;
+import fer22f.mods.satcom.block.BlockAntenna;
 import fer22f.mods.satcom.block.NiobiumGenerator;
 import fer22f.mods.satcom.gui.GuiHandler;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
@@ -33,6 +34,7 @@ public class SatCom {
 	public static int satelliteID = 500;
 	public static Block BlockSatellite = new BlockSatellite();
 	public static Block BlockNiobiumOre = new BlockNiobiumOre(501);
+	public static Block BlockAntenna = new BlockAntenna(502);
 	public static Item module = new Item(5000).setUnlocalizedName("module").setCreativeTab(tabSatellite).setTextureName("satcom:module").setMaxStackSize(1);
 	public static Item moduleGPS = new Item(5001).setUnlocalizedName("moduleGPS").setCreativeTab(tabSatellite).setTextureName("satcom:moduleGPS").setMaxStackSize(1);
 	public static Item moduleLaser = new Item(5002).setUnlocalizedName("moduleLaser").setCreativeTab(tabSatellite).setTextureName("satcom:moduleLaser").setMaxStackSize(1);
@@ -56,13 +58,21 @@ public class SatCom {
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
         LanguageRegistry.instance().addStringLocalization("itemGroup.SatCom", "SatCom");
         CraftingManager.getInstance().addRecipe(new ItemStack(BlockSatellite), "XXX", "RMR", "XXX", 'X', niobiumIngot,'R', Item.redstone, 'M', module);    
-           
+        
+        GameRegistry.registerBlock(BlockAntenna, "antenna");
+        LanguageRegistry.addName(BlockAntenna, "Antenna");
+        CraftingManager.getInstance().addRecipe(new ItemStack(BlockAntenna), "I I", "IRI", "III", 'I', Item.ingotIron, 'R', Item.redstone);
+        
         LanguageRegistry.addName(module, "Module");
         LanguageRegistry.addName(moduleGPS, "GPS Module");
         LanguageRegistry.addName(moduleLaser, "Laser Module");
         LanguageRegistry.addName(moduleWireless, "Wireless Module");
         CraftingManager.getInstance().addRecipe(new ItemStack(module), "CGC","GRG","CGC", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);
         CraftingManager.getInstance().addRecipe(new ItemStack(module), "GCG","CRC","GCG", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);
-        CraftingManager.getInstance().addRecipe(new ItemStack(moduleGPS), "");
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleGPS), " L ", "LML", " L ", 'M', module, 'L', new ItemStack(Item.dyePowder, 1, 4));
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleLaser), "RDR", "DMD", "RDR", 'M', module, 'D', Item.diamond, 'R', Item.redstone);
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleLaser), "DRD", "RMR", "DRD", 'M', module, 'D', Item.diamond, 'R', Item.redstone);
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "TRT", "RMR", "TRT", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "RTR", "TMT", "RTR", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
 	}
 }
