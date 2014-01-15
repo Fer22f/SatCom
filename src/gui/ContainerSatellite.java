@@ -17,7 +17,7 @@ public class ContainerSatellite extends Container {
         int i;
         int j;
 
-        this.addSlotToContainer(new Slot(tile, 0, 56 + (2 * 23), 46));
+        this.addSlotToContainer(new Slot(tile, 0, 56 + 23, 46));
 
         for (i = 0; i < 3; ++i)
         {
@@ -49,9 +49,9 @@ public class ContainerSatellite extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (i < 9)
+            if (i < 1)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 45, true))
+                if (!this.mergeItemStack(itemstack1, 1, 37, true))
                 {
                     return null;
                 }
