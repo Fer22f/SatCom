@@ -31,19 +31,29 @@ public class GuiRocketLauncher extends GuiContainer {
         this.mc.getTextureManager().bindTexture(guiTexture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-        
+        this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);        
+                
         for (int x = 0; x < 3; x++)
         {
         	for (int y = 0; y < 3; y++)
         	{
-              this.drawTexturedModalRect(17 + k + (x * 16), 20 + l + (y * 16), 176, 0, 16, 16);
+        		if (rocketLauncher.structure[x + (y * 3)])
+        		{
+                    this.drawTexturedModalRect(17 + k + (x * 16), 20 + l + (y * 16), 176, 0, 16, 16);
+        		} else {
+        			this.drawTexturedModalRect(17 + k + (x * 16), 20 + l + (y * 16), 176, 16, 16, 16);
+        		}
         	}
         }
         
         for (int x = 0; x < 3; x++)
         {
-           this.drawTexturedModalRect(110 + k + (x * 16), 36 + l, 176, 16, 16, 16);
+        	if (rocketLauncher.structure[x + 8])
+    		{
+                this.drawTexturedModalRect(110 + k + (x * 16), 36 + l, 176, 0, 16, 16);
+    		} else {
+    			this.drawTexturedModalRect(110 + k + (x * 16), 36 + l, 176, 16, 16, 16);
+    		}
         }
     }
 

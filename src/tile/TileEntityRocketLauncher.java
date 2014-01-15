@@ -1,21 +1,59 @@
 package fer22f.mods.satcom.tile;
 
+import java.util.Random;
+
+import fer22f.mods.satcom.SatCom;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 
 	private ItemStack[] contents = new ItemStack[1];
+	public Boolean[] structure = new Boolean[12];
+	private int cooldown;
 	protected String customName;
 	
 	@Override
 	public int getSizeInventory() {
 		return contents.length;
 	}
+	
+	public void updateEntity()
+    {
+		if (cooldown == 0)
+		{
+			int metadata = getBlockMetadata();
+			int addX = 0;
+			int addZ = 0;
+			int X = this.xCoord;
+			int Y = this.yCoord;
+			int Z = this.zCoord;
+			World world = this.worldObj;
+			
+			switch (metadata) {
+			case 0: addZ = -1;
+			case 1: addX = 1;
+			case 2: addZ = 1;
+			case 3: addX = -1;
+			}
+			
+			this.structure[0] = world.getBlockId(X + (addX * 3), Y, Z) == SatCom.NiobiumBlock.blockID;
+			
+			for (int x = 0; x < 12; x++)
+			{
+				Random r = new Random();
+				this.structure[x] = r.nextBoolean();
+				this.cooldown = 5 * 20;
+			}
+		} else {
+			cooldown--;
+		}
+    }
 
 	@Override
 	public ItemStack getStackInSlot(int i) {

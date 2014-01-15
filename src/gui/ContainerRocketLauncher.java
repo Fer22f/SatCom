@@ -18,7 +18,7 @@ public class ContainerRocketLauncher extends Container {
         int i;
         int j;
 
-        this.addSlotToContainer(new Slot(tile, 0, 56 + 23, 46));
+        this.addSlotToContainer(new Slot(tile, 0, 79, 36));
 
         for (i = 0; i < 3; ++i)
         {

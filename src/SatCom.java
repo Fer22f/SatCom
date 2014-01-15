@@ -22,6 +22,7 @@ import fer22f.mods.satcom.block.BlockSatellite;
 import fer22f.mods.satcom.block.BlockAntenna;
 import fer22f.mods.satcom.block.NiobiumGenerator;
 import fer22f.mods.satcom.gui.GuiHandler;
+import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
 @Mod(modid="SatCom", name="SatCom", version="0.0.0")
@@ -74,6 +75,7 @@ public class SatCom {
         
         GameRegistry.registerBlock(RocketLauncher, "rocketLauncher");
         LanguageRegistry.addName(RocketLauncher, "Rocket Launcher");
+        GameRegistry.registerTileEntity(TileEntityRocketLauncher.class, "RocketLauncher");
         
         LanguageRegistry.addName(module, "Module");
         LanguageRegistry.addName(moduleGPS, "GPS Module");
