@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntitySatellite extends TileEntity implements IInventory {
 
-	private ItemStack[] contents = new ItemStack[3];
+	private ItemStack[] contents = new ItemStack[1];
 	protected String customName;
 	
 	@Override

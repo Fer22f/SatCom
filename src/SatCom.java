@@ -27,7 +27,9 @@ public class SatCom {
 	public static int satelliteID = 500;
 	public static Block BlockSatellite = new BlockSatellite();
 	public static Item module = new Item(5000).setUnlocalizedName("module").setCreativeTab(tabSatellite).setTextureName("satcom:module").setMaxStackSize(1);
-		
+	public static Item moduleGPS = new Item(5001).setUnlocalizedName("moduleGPS").setCreativeTab(tabSatellite).setTextureName("satcom:moduleGPS").setMaxStackSize(1);
+	public static Item moduleLaser = new Item(5002).setUnlocalizedName("moduleLaser").setCreativeTab(tabSatellite).setTextureName("satcom:moduleLaser").setMaxStackSize(1);
+	public static Item moduleWireless = new Item(5003).setUnlocalizedName("moduleWireless").setCreativeTab(tabSatellite).setTextureName("satcom:moduleWireless").setMaxStackSize(1);
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -37,5 +39,8 @@ public class SatCom {
             NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
             LanguageRegistry.instance().addStringLocalization("itemGroup.SatCom", "SatCom");
             LanguageRegistry.addName(module, "Module");
+            LanguageRegistry.addName(moduleGPS, "GPS Module");
+            LanguageRegistry.addName(moduleLaser, "Laser Module");
+            LanguageRegistry.addName(moduleWireless, "Wireless Module");
     }
 }
