@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
+import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
 public class GuiHandler implements IGuiHandler {
@@ -16,6 +17,10 @@ public class GuiHandler implements IGuiHandler {
 		{
 			return new ContainerSatellite(player.inventory, (TileEntitySatellite)t);
 		}
+		if (t instanceof TileEntityRocketLauncher)
+		{
+			return new ContainerRocketLauncher(player.inventory, (TileEntityRocketLauncher)t);
+		}
 		return null;
 	}
 
@@ -26,6 +31,10 @@ public class GuiHandler implements IGuiHandler {
 		if (t instanceof TileEntitySatellite)
 		{
 			return new GuiSatellite(player.inventory, (TileEntitySatellite)t);
+		}
+		if (t instanceof TileEntityRocketLauncher)
+		{
+			return new GuiRocketLauncher(player.inventory, (TileEntityRocketLauncher)t);
 		}
 		return null;
 	}

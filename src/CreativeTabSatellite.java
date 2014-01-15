@@ -14,7 +14,7 @@ public class CreativeTabSatellite extends CreativeTabs {
 	@SideOnly(Side.CLIENT)
     public int getTabIconItemIndex()
     {
-        return SatCom.BlockSatellite.blockID;
+        return SatCom.Satellite.blockID;
     }
 
 }

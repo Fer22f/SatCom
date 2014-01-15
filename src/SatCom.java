@@ -16,6 +16,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import fer22f.mods.satcom.block.BlockNiobiumOre;
+import fer22f.mods.satcom.block.BlockNiobiumBlock;
+import fer22f.mods.satcom.block.BlockRocketLauncher;
 import fer22f.mods.satcom.block.BlockSatellite;
 import fer22f.mods.satcom.block.BlockAntenna;
 import fer22f.mods.satcom.block.NiobiumGenerator;
@@ -31,10 +33,12 @@ public class SatCom {
 	
 	public static CreativeTabs tabSatellite = new CreativeTabSatellite();
 	
-	public static int satelliteID = 500;
-	public static Block BlockSatellite = new BlockSatellite();
-	public static Block BlockNiobiumOre = new BlockNiobiumOre(501);
-	public static Block BlockAntenna = new BlockAntenna(502);
+	public static Block Satellite = new BlockSatellite(500);
+	public static Block NiobiumOre = new BlockNiobiumOre(501);
+	public static Block Antenna = new BlockAntenna(502);
+	public static Block NiobiumBlock = new BlockNiobiumBlock(503);
+	public static Block RocketLauncher = new BlockRocketLauncher(504);
+		
 	public static Item module = new Item(5000).setUnlocalizedName("module").setCreativeTab(tabSatellite).setTextureName("satcom:module").setMaxStackSize(1);
 	public static Item moduleGPS = new Item(5001).setUnlocalizedName("moduleGPS").setCreativeTab(tabSatellite).setTextureName("satcom:moduleGPS").setMaxStackSize(1);
 	public static Item moduleLaser = new Item(5002).setUnlocalizedName("moduleLaser").setCreativeTab(tabSatellite).setTextureName("satcom:moduleLaser").setMaxStackSize(1);
@@ -43,25 +47,32 @@ public class SatCom {
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-		GameRegistry.registerBlock(BlockNiobiumOre, "niobiumOre");
-        LanguageRegistry.addName(BlockNiobiumOre, "Niobium Ore");
-        MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 2, "pickaxe", 2);
-        MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 3, "pickaxe", 2);
-        MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 4, "pickaxe", 2);
+		GameRegistry.registerBlock(NiobiumOre, "niobiumOre");
+        LanguageRegistry.addName(NiobiumOre, "Niobium Ore");
+        MinecraftForge.setBlockHarvestLevel(NiobiumOre, 2, "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(NiobiumOre, 3, "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(NiobiumOre, 4, "pickaxe", 2);
         GameRegistry.registerWorldGenerator(new NiobiumGenerator());
         LanguageRegistry.addName(niobiumIngot, "Niobium Ingot");
-        FurnaceRecipes.smelting().addSmelting(BlockNiobiumOre.blockID, new ItemStack(niobiumIngot), 1F);
+        FurnaceRecipes.smelting().addSmelting(NiobiumOre.blockID, new ItemStack(niobiumIngot), 1F);
 				
-        GameRegistry.registerBlock(BlockSatellite, "satellite");
-        LanguageRegistry.addName(BlockSatellite, "Satellite");
+        GameRegistry.registerBlock(Satellite, "satellite");
+        LanguageRegistry.addName(Satellite, "Satellite");
         GameRegistry.registerTileEntity(TileEntitySatellite.class, "Satellite");
         NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
         LanguageRegistry.instance().addStringLocalization("itemGroup.SatCom", "SatCom");
-        CraftingManager.getInstance().addRecipe(new ItemStack(BlockSatellite), "XXX", "RMR", "XXX", 'X', niobiumIngot,'R', Item.redstone, 'M', module);    
+        CraftingManager.getInstance().addRecipe(new ItemStack(Satellite), "XXX", "RMR", "XXX", 'X', niobiumIngot,'R', Item.redstone, 'M', module);    
         
-        GameRegistry.registerBlock(BlockAntenna, "antenna");
-        LanguageRegistry.addName(BlockAntenna, "Antenna");
-        CraftingManager.getInstance().addRecipe(new ItemStack(BlockAntenna), "I I", "IRI", "III", 'I', Item.ingotIron, 'R', Item.redstone);
+        GameRegistry.registerBlock(Antenna, "antenna");
+        LanguageRegistry.addName(Antenna, "Antenna");
+        CraftingManager.getInstance().addRecipe(new ItemStack(Antenna), "I I", "IRI", "III", 'I', Item.ingotIron, 'R', Item.redstone);
+        
+        GameRegistry.registerBlock(NiobiumBlock, "niobiumBlock");
+        LanguageRegistry.addName(NiobiumBlock, "Niobium Block");
+        CraftingManager.getInstance().addRecipe(new ItemStack(NiobiumBlock), "XXX", "XXX", "XXX", 'X', niobiumIngot);
+        CraftingManager.getInstance().addRecipe(new ItemStack(niobiumIngot), "X", 'X', NiobiumBlock);
+        
+        
         
         LanguageRegistry.addName(module, "Module");
         LanguageRegistry.addName(moduleGPS, "GPS Module");
@@ -74,5 +85,7 @@ public class SatCom {
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleLaser), "DRD", "RMR", "DRD", 'M', module, 'D', Item.diamond, 'R', Item.redstone);
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "TRT", "RMR", "TRT", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "RTR", "TMT", "RTR", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
+	
+	
 	}
 }

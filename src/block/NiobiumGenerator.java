@@ -19,7 +19,7 @@ public class NiobiumGenerator implements IWorldGenerator {
 				int firstBlockYCoord = random.nextInt(30);
 				int firstBlockZCoord = (chunkZ * 16) + random.nextInt(16);
 								
-				(new WorldGenMinable(SatCom.BlockNiobiumOre.blockID, 5)).generate(world, random, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
+				(new WorldGenMinable(SatCom.NiobiumOre.blockID, 5)).generate(world, random, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
 			}
 		}
 	}

@@ -15,27 +15,28 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fer22f.mods.satcom.SatCom;
+import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
-public class BlockSatellite extends BlockContainer {
+public class BlockRocketLauncher extends BlockContainer {
 
 	@SideOnly(Side.CLIENT)
 	private static Icon faceIcon;
 	
-	public BlockSatellite(int id) {
+	public BlockRocketLauncher(int id) {
 		super(id, Material.iron);
 		this.setHardness(10.0F);
 		this.setStepSound(soundMetalFootstep);
-		this.setUnlocalizedName("satellite");
+		this.setUnlocalizedName("rocketLauncher");
 		this.setCreativeTab(SatCom.tabSatellite);
-		this.setTextureName("satcom:satellite");
+		this.setTextureName("satcom:rocketLauncher");
 	}
 	
 	@SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
         this.blockIcon = par1IconRegister.registerIcon("satcom:niobiumBlock");
-        this.faceIcon = par1IconRegister.registerIcon("satcom:satellite");
+        this.faceIcon = par1IconRegister.registerIcon("satcom:rocketLauncher");
     }
 	
 	@SideOnly(Side.CLIENT)
@@ -52,7 +53,7 @@ public class BlockSatellite extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntitySatellite();
+		return new TileEntityRocketLauncher();
 	}
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
@@ -63,11 +64,11 @@ public class BlockSatellite extends BlockContainer {
         }
         else
         {
-            TileEntitySatellite tile = (TileEntitySatellite)world.getBlockTileEntity(x, y, z);
+            TileEntityRocketLauncher tile = (TileEntityRocketLauncher)world.getBlockTileEntity(x, y, z);
 
             if (tile != null)
             {
-                player.openGui(SatCom.instance, 0, world, x, y, z);
+                player.openGui(SatCom.instance, 1, world, x, y, z);
             }
 
             return true;
