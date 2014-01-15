@@ -3,6 +3,8 @@ package fer22f.mods.satcom.gui;
 import org.lwjgl.opengl.GL11;
 
 import fer22f.mods.satcom.tile.TileEntitySatellite;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -18,6 +20,16 @@ public class GuiSatellite extends GuiContainer {
 		super(new ContainerSatellite(inventory, tile));
 		this.satellite = tile;
 	}
+	
+	public void initGui()
+    {
+		int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+        super.initGui();
+        this.buttonList.clear();
+        this.buttonList.add(new GuiButton(0, 60 + k, 19 + l, 15, 20, "-"));
+        this.buttonList.add(new GuiButton(0, 98 + k, 19 + l, 15, 20, "+"));
+    }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
         this.fontRenderer.drawString("Satellite", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
