@@ -36,20 +36,27 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 			World world = this.worldObj;
 			
 			switch (metadata) {
-			case 0: addZ = -1;
-			case 1: addX = 1;
-			case 2: addZ = 1;
+			case 0: addZ = -1; break;
+			case 1: addX = 1; break;
+			case 2: addZ = 1; break;
 			case 3: addX = -1;
-			}
-			
-			this.structure[0] = world.getBlockId(X + (addX * 3), Y, Z) == SatCom.NiobiumBlock.blockID;
-			
+			}		
+						
 			for (int x = 0; x < 12; x++)
 			{
-				Random r = new Random();
-				this.structure[x] = r.nextBoolean();
-				this.cooldown = 5 * 20;
+				this.structure[x] = false;				
 			}
+			this.structure[0] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 3) + (addX * 3))), Y, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 3) + (addX * 3)))) == SatCom.NiobiumBlock.blockID;
+			this.structure[1] = world.getBlockId(X + (addX * 3), Y, Z + (addZ * 3)) == SatCom.NiobiumBlock.blockID;
+			this.structure[2] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 3) + (addX * 3))), Y, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 3) + (addX * 3)))) == SatCom.NiobiumBlock.blockID;
+			this.structure[3] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2)))) == SatCom.NiobiumBlock.blockID;
+			this.structure[4] = world.getBlockId(X + (addX * 2), Y, Z + (addZ * 2)) == SatCom.NiobiumBlock.blockID;
+			this.structure[5] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2)))) == SatCom.NiobiumBlock.blockID;
+			this.structure[6] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == SatCom.NiobiumBlock.blockID;
+			this.structure[7] = world.getBlockId(X + (addX * 1), Y, Z + (addZ * 1)) == SatCom.NiobiumBlock.blockID;
+			this.structure[8] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == SatCom.NiobiumBlock.blockID;
+			
+			this.cooldown = 5 * 20;
 		} else {
 			cooldown--;
 		}
