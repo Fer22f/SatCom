@@ -3,6 +3,9 @@ package fer22f.mods.satcom;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -34,26 +37,32 @@ public class SatCom {
 	public static Item moduleGPS = new Item(5001).setUnlocalizedName("moduleGPS").setCreativeTab(tabSatellite).setTextureName("satcom:moduleGPS").setMaxStackSize(1);
 	public static Item moduleLaser = new Item(5002).setUnlocalizedName("moduleLaser").setCreativeTab(tabSatellite).setTextureName("satcom:moduleLaser").setMaxStackSize(1);
 	public static Item moduleWireless = new Item(5003).setUnlocalizedName("moduleWireless").setCreativeTab(tabSatellite).setTextureName("satcom:moduleWireless").setMaxStackSize(1);
-	public static Item niobiumIngot = new Item(5004).setUnlocalizedName("niobiumIngot").setCreativeTab(tabSatellite).setTextureName("satcom:niboumIngot");
+	public static Item niobiumIngot = new Item(5004).setUnlocalizedName("niobiumIngot").setCreativeTab(tabSatellite).setTextureName("satcom:niobiumIngot");
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-            GameRegistry.registerBlock(BlockSatellite, "satellite");
-            LanguageRegistry.addName(BlockSatellite, "Satellite");
-            GameRegistry.registerTileEntity(TileEntitySatellite.class, "Satellite");
-            NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
-            LanguageRegistry.instance().addStringLocalization("itemGroup.SatCom", "SatCom");
-            GameRegistry.registerBlock(BlockNiobiumOre, "niobiumOre");
-            LanguageRegistry.addName(BlockNiobiumOre, "Niobium Ore");
-            MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 2, "pickaxe", 2);
-            MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 3, "pickaxe", 2);
-            MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 4, "pickaxe", 2);
-            GameRegistry.registerWorldGenerator(new NiobiumGenerator());
-            
-            LanguageRegistry.addName(module, "Module");
-            LanguageRegistry.addName(moduleGPS, "GPS Module");
-            LanguageRegistry.addName(moduleLaser, "Laser Module");
-            LanguageRegistry.addName(moduleWireless, "Wireless Module");
-            
-    }
+		GameRegistry.registerBlock(BlockNiobiumOre, "niobiumOre");
+        LanguageRegistry.addName(BlockNiobiumOre, "Niobium Ore");
+        MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 2, "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 3, "pickaxe", 2);
+        MinecraftForge.setBlockHarvestLevel(BlockNiobiumOre, 4, "pickaxe", 2);
+        GameRegistry.registerWorldGenerator(new NiobiumGenerator());
+        LanguageRegistry.addName(niobiumIngot, "Niobium Ingot");
+        FurnaceRecipes.smelting().addSmelting(BlockNiobiumOre.blockID, new ItemStack(niobiumIngot), 1F);
+				
+        GameRegistry.registerBlock(BlockSatellite, "satellite");
+        LanguageRegistry.addName(BlockSatellite, "Satellite");
+        GameRegistry.registerTileEntity(TileEntitySatellite.class, "Satellite");
+        NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
+        LanguageRegistry.instance().addStringLocalization("itemGroup.SatCom", "SatCom");
+        CraftingManager.getInstance().addRecipe(new ItemStack(BlockSatellite), "XXX", "RMR", "XXX", 'X', niobiumIngot,'R', Item.redstone, 'M', module);    
+           
+        LanguageRegistry.addName(module, "Module");
+        LanguageRegistry.addName(moduleGPS, "GPS Module");
+        LanguageRegistry.addName(moduleLaser, "Laser Module");
+        LanguageRegistry.addName(moduleWireless, "Wireless Module");
+        CraftingManager.getInstance().addRecipe(new ItemStack(module), "CGC","GRG","CGC", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);
+        CraftingManager.getInstance().addRecipe(new ItemStack(module), "GCG","CRC","GCG", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleGPS), "");
+	}
 }

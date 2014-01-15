@@ -15,10 +15,10 @@ public class NiobiumGenerator implements IWorldGenerator {
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if (world.provider.dimensionId == 0){
 			for(int k = 0; k < 10; k++) {
-				int firstBlockXCoord = chunkX + random.nextInt(16);
-				int firstBlockYCoord = 80 + random.nextInt(16);
-				int firstBlockZCoord = chunkZ + random.nextInt(16);
-				
+				int firstBlockXCoord = (chunkX * 16) + random.nextInt(16);
+				int firstBlockYCoord = random.nextInt(30);
+				int firstBlockZCoord = (chunkZ * 16) + random.nextInt(16);
+								
 				(new WorldGenMinable(SatCom.BlockNiobiumOre.blockID, 5)).generate(world, random, firstBlockXCoord, firstBlockYCoord, firstBlockZCoord);
 			}
 		}
