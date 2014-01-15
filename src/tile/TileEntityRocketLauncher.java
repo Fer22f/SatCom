@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 
 	private ItemStack[] contents = new ItemStack[1];
-	public Boolean[] structure = new Boolean[12];
+	public Boolean[] structure = new Boolean[18];
 	private int cooldown;
 	protected String customName;
 	
@@ -42,11 +42,6 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 			case 2: addZ = 1; break;
 			case 3: addX = -1;
 			}		
-						
-			for (int x = 0; x < 12; x++)
-			{
-				this.structure[x] = false;				
-			}
 			
 			this.structure[0] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 3) + (addX * 3))), Y, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 3) + (addX * 3)))) == SatCom.NiobiumBlock.blockID;
 			this.structure[1] = world.getBlockId(X + (addX * 3), Y, Z + (addZ * 3)) == SatCom.NiobiumBlock.blockID;
@@ -58,9 +53,15 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 			this.structure[7] = world.getBlockId(X + (addX * 1), Y, Z + (addZ * 1)) == SatCom.NiobiumBlock.blockID;
 			this.structure[8] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == SatCom.NiobiumBlock.blockID;
 			
-			this.structure[9] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2)))) == Block.daylightSensor.blockID;
-			this.structure[10] = world.getBlockId(X + (addX * 2), Y + 1, Z + (addZ * 2)) == SatCom.Satellite.blockID;
-			this.structure[11] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2)))) == Block.daylightSensor.blockID;
+			this.structure[9]  = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 3) + (addX * 3))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 3) + (addX * 3)))) == 0;
+			this.structure[10] = world.getBlockId(X + (addX * 3), Y + 1, Z + (addZ * 3)) == 0;
+			this.structure[11] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 3) + (addX * 3))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 3) + (addX * 3)))) == 0;
+			this.structure[12] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2)))) == Block.daylightSensor.blockID;
+			this.structure[13] = world.getBlockId(X + (addX * 2), Y + 1, Z + (addZ * 2)) == SatCom.Satellite.blockID;
+			this.structure[14] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2)))) == Block.daylightSensor.blockID;
+			this.structure[15] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == 0;
+			this.structure[16] = world.getBlockId(X + (addX * 1), Y + 1, Z + (addZ * 1)) == 0;
+			this.structure[17] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == 0;
 			
 			this.cooldown = 5 * 20;
 		} else {

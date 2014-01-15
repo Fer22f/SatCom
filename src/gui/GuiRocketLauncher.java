@@ -48,12 +48,15 @@ public class GuiRocketLauncher extends GuiContainer {
         
         for (int x = 0; x < 3; x++)
         {
-        	if (rocketLauncher.structure[x + 9])
+        	for (int y = 0; y < 3; y++)
+        	{
+        	if (rocketLauncher.structure[x + 9 + (y * 3)])
     		{
-                this.drawTexturedModalRect(110 + k + (x * 16), 36 + l, 176, 0, 16, 16);
+                this.drawTexturedModalRect(110 + k + (x * 16), 20 + l + (y * 16), 176, 0, 16, 16);
     		} else {
-    			this.drawTexturedModalRect(110 + k + (x * 16), 36 + l, 176, 16, 16, 16);
+    			this.drawTexturedModalRect(110 + k + (x * 16), 20 + l + (y * 16), 176, 16, 16, 16);
     		}
+        	}
         }
     }
 
