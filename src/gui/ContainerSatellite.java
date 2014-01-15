@@ -1,5 +1,6 @@
 package fer22f.mods.satcom.gui;
 
+import fer22f.mods.satcom.SatCom;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -17,7 +18,7 @@ public class ContainerSatellite extends Container {
         int i;
         int j;
 
-        this.addSlotToContainer(new Slot(tile, 0, 56 + 23, 46));
+        this.addSlotToContainer(new SlotModule(tile, 0, 56 + 23, 46));
 
         for (i = 0; i < 3; ++i)
         {
@@ -56,7 +57,11 @@ public class ContainerSatellite extends Container {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, 9, false))
+            else if ((itemstack1.itemID == SatCom.moduleGPS.itemID ||
+            		itemstack1.itemID == SatCom.moduleLaser.itemID ||
+            		itemstack1.itemID == SatCom.moduleWireless.itemID ||
+            		itemstack1.itemID == SatCom.module.itemID) && 
+            		!this.mergeItemStack(itemstack1, 0, 9, false))
             {
                 return null;
             }

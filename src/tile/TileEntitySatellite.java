@@ -1,5 +1,6 @@
 package fer22f.mods.satcom.tile;
 
+import fer22f.mods.satcom.SatCom;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -113,8 +114,15 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
 	public void closeChest() {}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
+	public boolean isItemValidForSlot(int i, ItemStack par1ItemStack) {
+		if (par1ItemStack.itemID == SatCom.moduleGPS.itemID ||
+	    		par1ItemStack.itemID == SatCom.moduleLaser.itemID ||
+	    		par1ItemStack.itemID == SatCom.moduleWireless.itemID ||
+	    		par1ItemStack.itemID == SatCom.module.itemID)
+	    	{
+	    		return true;
+	    	}
+		return false;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)

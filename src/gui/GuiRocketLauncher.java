@@ -22,7 +22,7 @@ public class GuiRocketLauncher extends GuiContainer {
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
         this.fontRenderer.drawString("Rocket Launcher", this.xSize / 2 - this.fontRenderer.getStringWidth("Rocket Launcher") / 2, 6, 4210752);
-        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);  
 	}
 	
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
@@ -32,6 +32,19 @@ public class GuiRocketLauncher extends GuiContainer {
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+        
+        for (int x = 0; x < 3; x++)
+        {
+        	for (int y = 0; y < 3; y++)
+        	{
+              this.drawTexturedModalRect(17 + k + (x * 16), 20 + l + (y * 16), 176, 0, 16, 16);
+        	}
+        }
+        
+        for (int x = 0; x < 3; x++)
+        {
+           this.drawTexturedModalRect(110 + k + (x * 16), 36 + l, 176, 16, 16, 16);
+        }
     }
 
 }

@@ -72,7 +72,8 @@ public class SatCom {
         CraftingManager.getInstance().addRecipe(new ItemStack(NiobiumBlock), "XXX", "XXX", "XXX", 'X', niobiumIngot);
         CraftingManager.getInstance().addRecipe(new ItemStack(niobiumIngot), "X", 'X', NiobiumBlock);
         
-        
+        GameRegistry.registerBlock(RocketLauncher, "rocketLauncher");
+        LanguageRegistry.addName(RocketLauncher, "Rocket Launcher");
         
         LanguageRegistry.addName(module, "Module");
         LanguageRegistry.addName(moduleGPS, "GPS Module");
