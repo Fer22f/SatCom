@@ -39,8 +39,12 @@ public class GuiController extends GuiContainer {
     }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
-        this.fontRenderer.drawString("Satellite", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
+        this.fontRenderer.drawString("Controller", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
         this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        
+        this.fontRenderer.drawString(controller.ID + "",
+        		(11 - this.fontRenderer.getStringWidth(controller.ID + "") / 2) + 77,
+        		26, 4210752);
 	}
 		
 	protected void actionPerformed(GuiButton par1GuiButton)

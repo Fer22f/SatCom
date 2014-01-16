@@ -24,6 +24,7 @@ import fer22f.mods.satcom.block.BlockSatellite;
 import fer22f.mods.satcom.block.BlockAntenna;
 import fer22f.mods.satcom.block.NiobiumGenerator;
 import fer22f.mods.satcom.gui.GuiHandler;
+import fer22f.mods.satcom.tile.TileEntityController;
 import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
@@ -77,6 +78,8 @@ public class SatCom {
         CraftingManager.getInstance().addRecipe(new ItemStack(Antenna), "I I", "IRI", "III", 'I', Item.ingotIron, 'R', Item.redstone);
         
         GameRegistry.registerBlock(Controller, "controller");
+        LanguageRegistry.addName(Controller, "Controller");
+        GameRegistry.registerTileEntity(TileEntityController.class, "Controller");
         
         GameRegistry.registerBlock(NiobiumBlock, "niobiumBlock");
         LanguageRegistry.addName(NiobiumBlock, "Niobium Block");
