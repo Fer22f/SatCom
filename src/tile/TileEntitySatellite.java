@@ -1,11 +1,14 @@
 package fer22f.mods.satcom.tile;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import fer22f.mods.satcom.SatCom;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
@@ -75,8 +78,11 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
 	public Packet getDescriptionPacket() {
 	    NBTTagCompound tagCompound = new NBTTagCompound();
 	    writeToNBT(tagCompound);
-	    System.out.println("Get the description");
-	    return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tagCompound);
+	    return new Packet132TileEntityData(xCoord, yCoord, zCoord, 5, tagCompound);
+	}
+	
+	public void onDataPacket(INetworkManager networkManager, Packet132TileEntityData packet) {
+	    readFromNBT(packet.data);
 	}
 
 	@Override
@@ -158,6 +164,7 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
         }
        
        	this.ID = tag.getInteger("ID");
+       	System.out.println("Read from NBT! ID: " + this.ID + " isRemote? " +  FMLCommonHandler.instance().getEffectiveSide());
     }
 
     public void writeToNBT(NBTTagCompound tag)
@@ -183,6 +190,7 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
             tag.setString("CustomName", this.customName);
         }
         
+        System.out.println("Write to NBT! ID: " + this.ID + " isRemote? " +  FMLCommonHandler.instance().getEffectiveSide());
         tag.setInteger("ID", this.ID);
     }
 

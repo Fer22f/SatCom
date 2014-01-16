@@ -24,6 +24,7 @@ public class GuiSatellite extends GuiContainer {
 	public GuiSatellite(InventoryPlayer inventory, TileEntitySatellite tile) {
 		super(new ContainerSatellite(inventory, tile));
 		this.satellite = tile;
+		System.out.println(tile.ID);
 	}
 	
 	public void initGui()
@@ -34,6 +35,7 @@ public class GuiSatellite extends GuiContainer {
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(0, 60 + k, 19 + l, 17, 20, "-"));
         this.buttonList.add(new GuiButton(1, 98 + k, 19 + l, 17, 20, "+"));
+        this.buttonList.add(new GuiButton(0, 43 + k, 19 + l, 17, 20, "--"));
     }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
@@ -44,10 +46,10 @@ public class GuiSatellite extends GuiContainer {
         		(11 - this.fontRenderer.getStringWidth(satellite.ID + "") / 2) + 77,
         		26, 4210752);
 	}
-	
+		
 	protected void actionPerformed(GuiButton par1GuiButton)
     {
-        if (par1GuiButton.id == 0)
+		if (par1GuiButton.id == 0)
         {
         	if (satellite.ID > 1)
         	{
