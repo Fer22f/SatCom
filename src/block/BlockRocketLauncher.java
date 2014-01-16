@@ -56,11 +56,21 @@ public class BlockRocketLauncher extends BlockContainer {
 		world.setBlockToAir(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
 		world.setBlockToAir(X + (addX * 2), Y + 1, Z + (addZ * 2));
 		world.setBlockToAir(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
-    }
+   
+		int explosionX = X + (addX * 2);
+		int explosionY = Y + 1;
+		int explosionZ = Z + (addZ * 2);
+		
+		world.playSoundEffect(X, Y, Z, "random.explode", 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+
+		world.spawnParticle("reddust", explosionX, explosionY, explosionZ, 0.0D /*red*/, 1.0D /*green*/, 0.0D /*blue*/);
+	}
 	
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
     {
 		boolean flag = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
+		
+		if (flag)
 		par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
     }
 	
