@@ -92,8 +92,9 @@ public class BlockRocketLauncher extends BlockContainer {
 	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
     {
 		boolean flag = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
+		TileEntityRocketLauncher r = (TileEntityRocketLauncher)par1World.getBlockTileEntity(par2, par3, par4);
 		
-		if (flag)
+		if (flag && r.everythingIsOk)
 		par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
     }
 	

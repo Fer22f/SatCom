@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -66,6 +67,16 @@ public class PacketHandler implements IPacketHandler {
                 Z = inputStream.readInt();
                 
                 System.out.println(X + " " + Y + " " + Z);
+                
+                EntityPlayer p = (EntityPlayer)player;
+                
+                World w = p.worldObj;
+                
+                for (int k = 0; k < 8; k++)
+                {
+                w.spawnParticle("hugeexplosion", X, Y + k, Z, 0.0F, 0.0F, 0.0F);
+                }
+                
 	        } catch (IOException e) {
                 e.printStackTrace();
                 return;

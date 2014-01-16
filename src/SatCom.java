@@ -10,6 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -32,6 +33,9 @@ public class SatCom {
 
 	@Instance(value = "SatCom")
     public static SatCom instance;
+	
+	@SidedProxy(clientSide="fer22f.mods.satcom.ClientProxy", serverSide="fer22f.mods.satcom.CommonProxy")
+	public static CommonProxy proxy;
 	
 	public static CreativeTabs tabSatellite = new CreativeTabSatellite();
 	
@@ -96,6 +100,6 @@ public class SatCom {
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "TRT", "RMR", "TRT", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "RTR", "TMT", "RTR", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
 	
-	
+        proxy.preInit();
 	}
 }
