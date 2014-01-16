@@ -21,7 +21,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiController extends GuiContainer {
-
+	
 	private static final ResourceLocation controllerGuiTexture = new ResourceLocation("satcom","textures/gui/controller.png");
     private TileEntityController controller;
 	
@@ -29,6 +29,7 @@ public class GuiController extends GuiContainer {
 		super(new ContainerController(inventory, tile));
 		this.controller = tile;
 	}
+	
 	
 	public void initGui()
     {
@@ -40,22 +41,13 @@ public class GuiController extends GuiContainer {
         this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
         this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
         this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));
-        
-        if (controller.module.equalsIgnoreCase("moduleWeather"))
-        this.buttonList.add(new GuiButton(4, 113 + k, 53, 20, 20, "R"));
+       
+        this.buttonList.add(new GuiButton(4, 60  + k, 45 + l, 17, 20, "-"));
+        this.buttonList.add(new GuiButton(5, 98  + k, 45 + l, 17, 20, "+"));
+        this.buttonList.add(new GuiButton(6, 41  + k, 45 + l, 20, 20, "--"));
+        this.buttonList.add(new GuiButton(7, 113 + k, 45 + l, 20, 20, "++"));
     }
 	
-	private void drawMap(int x1, int y1)
-	{
-		for (int x = 0; x < 20; x++)
-		{
-			for (int y = 0; y < 20; y++)
-			{
-				this.drawRect(x + x1, y + y1, x + x1, y + y1, controller.topBlocks[x][y].colorValue);
-			}
-		}
-	}
-
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
         this.fontRenderer.drawString("Controller", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
         this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);       
@@ -72,13 +64,11 @@ public class GuiController extends GuiContainer {
         } else if (controller.module.equalsIgnoreCase("module")) {
         	informativeText = "This is a generic module";
         } else if (controller.module.equalsIgnoreCase("moduleWeather")) {
-        	
-        	drawMap(5, 20);
         	informativeText = "A signal will stop the rain";
         } else if (controller.module.equalsIgnoreCase("moduleWireless")) {
         	informativeText = "Second ID";
         } else if (controller.module.equalsIgnoreCase("moduleCamera")) {
-        	informativeText = "Give the map to fill";
+        	
         }
         
       //  this.fontRenderer.drawString(informativeText, 6 + 17, 53, 4210752);
@@ -117,19 +107,7 @@ public class GuiController extends GuiContainer {
         	}
         }
 				
-		controller.updateModuleName();		
-
-		if (controller.module.equalsIgnoreCase("moduleWeather"))
-		{
-	        Object o = this.buttonList.get(4);
-	        GuiButton g = (GuiButton)o;
-	        g.drawButton = true;
-		} else {
-			Object o = this.buttonList.get(4);
-	        GuiButton g = (GuiButton)o;
-	        g.drawButton = false;
-		}
-		
+		controller.updateModuleName();				
         sendChangeToServer();
     }
 	
