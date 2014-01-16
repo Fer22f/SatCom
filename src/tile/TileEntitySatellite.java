@@ -17,7 +17,7 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
 
 	private ItemStack[] contents = new ItemStack[1];
 	public int ID;
-	protected String customName;
+	protected String customName;	
 	
 	@Override
 	public int getSizeInventory() {

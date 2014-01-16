@@ -22,7 +22,7 @@ public class GuiRocketLauncher extends GuiContainer {
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
         this.fontRenderer.drawString("Rocket Launcher", this.xSize / 2 - this.fontRenderer.getStringWidth("Rocket Launcher") / 2, 6, 4210752);
-        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);  
+        this.fontRenderer.drawString(rocketLauncher.everythingIsOk ? "Apply a redstone signal to start" : "Please provide the materials", 8, this.ySize - 96 + 2, 4210752);  
 	}
 	
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)

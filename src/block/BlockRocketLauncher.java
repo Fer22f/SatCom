@@ -1,5 +1,8 @@
 package fer22f.mods.satcom.block;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -23,6 +26,11 @@ public class BlockRocketLauncher extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	private static Icon faceIcon;
 	
+	public int tickRate(World par1World)
+    {
+        return 4;
+    }
+	
 	public BlockRocketLauncher(int id) {
 		super(id, Material.iron);
 		this.setHardness(10.0F);
@@ -31,6 +39,30 @@ public class BlockRocketLauncher extends BlockContainer {
 		this.setCreativeTab(SatCom.tabSatellite);
 		this.setTextureName("satcom:rocketLauncher");
 	}
+	
+	public void updateTick(World world, int X, int Y, int Z, Random random)
+    {
+		int metadata = world.getBlockMetadata(X, Y, Z);
+		int addX = 0;
+		int addZ = 0;
+		
+		switch (metadata) {
+		case 0: addZ = -1; break;
+		case 1: addX = 1; break;
+		case 2: addZ = 1; break;
+		case 3: addX = -1;
+		}	
+		
+		world.setBlockToAir(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
+		world.setBlockToAir(X + (addX * 2), Y + 1, Z + (addZ * 2));
+		world.setBlockToAir(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
+    }
+	
+	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
+    {
+		boolean flag = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
+		par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
+    }
 	
 	@SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)

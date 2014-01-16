@@ -1,5 +1,6 @@
 package fer22f.mods.satcom.gui;
 
+import fer22f.mods.satcom.SatCom;
 import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +19,7 @@ public class ContainerRocketLauncher extends Container {
         int i;
         int j;
 
-        this.addSlotToContainer(new Slot(tile, 0, 79, 36));
+        this.addSlotToContainer(new SlotRocketFuel(tile, 0, 79, 36));
 
         for (i = 0; i < 3; ++i)
         {
@@ -57,7 +58,7 @@ public class ContainerRocketLauncher extends Container {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, 9, false))
+            else if (itemstack1.itemID == SatCom.rocketFuel.itemID && !this.mergeItemStack(itemstack1, 0, 9, false))
             {
                 return null;
             }

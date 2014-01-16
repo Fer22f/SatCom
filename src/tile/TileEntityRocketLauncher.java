@@ -18,6 +18,7 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 	public Boolean[] structure = new Boolean[18];
 	private int cooldown;
 	protected String customName;
+	public boolean everythingIsOk;
 	
 	@Override
 	public int getSizeInventory() {
@@ -62,6 +63,15 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 			this.structure[15] = world.getBlockId(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == 0;
 			this.structure[16] = world.getBlockId(X + (addX * 1), Y + 1, Z + (addZ * 1)) == 0;
 			this.structure[17] = world.getBlockId(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 1) + (addX * 1))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 1) + (addX * 1)))) == 0;
+			
+			boolean check = true;
+			
+			for (int x = 0; x < 18; x++)
+			{
+				check = this.structure[x] & check;
+			}
+			
+			everythingIsOk = check && (contents[0] != null && contents[0].itemID == SatCom.rocketFuel.itemID);
 			
 			this.cooldown = 5 * 20;
 		} else {

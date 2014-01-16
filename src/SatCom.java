@@ -78,6 +78,11 @@ public class SatCom {
         GameRegistry.registerBlock(RocketLauncher, "rocketLauncher");
         LanguageRegistry.addName(RocketLauncher, "Rocket Launcher");
         GameRegistry.registerTileEntity(TileEntityRocketLauncher.class, "RocketLauncher");
+        CraftingManager.getInstance().addRecipe(new ItemStack(RocketLauncher), "XXX", "RTR", "XXX", 'X', niobiumIngot,'R', Item.redstone, 'T', Block.tnt);
+        
+        LanguageRegistry.addName(rocketFuel, "Rocket Fuel");
+        CraftingManager.getInstance().addRecipe(new ItemStack(rocketFuel), "RGR", "GTG", "RGR", 'R', Item.redstone,'G', Item.gunpowder, 'T', Item.ghastTear);
+        CraftingManager.getInstance().addRecipe(new ItemStack(rocketFuel), "GRG", "RTR", "GRG", 'R', Item.redstone,'G', Item.gunpowder, 'T', Item.ghastTear);
         
         LanguageRegistry.addName(module, "Module");
         LanguageRegistry.addName(moduleGPS, "GPS Module");
