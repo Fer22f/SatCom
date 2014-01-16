@@ -52,6 +52,24 @@ public class PacketHandler implements IPacketHandler {
 	                e.printStackTrace();
 	                return;
 	        }
+		} else if(packet.channel == "rocketexplosion")
+		{
+			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+		       
+	        int X;
+	        int Y;
+	        int Z;
+	        
+	        try {
+                X = inputStream.readInt();
+                Y = inputStream.readInt();
+                Z = inputStream.readInt();
+                
+                System.out.println(X + " " + Y + " " + Z);
+	        } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
 		}
 	}
 
