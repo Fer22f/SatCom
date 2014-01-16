@@ -58,18 +58,9 @@ public class SatCom {
 	public static Item niobiumIngot = new Item(5004).setUnlocalizedName("niobiumIngot").setCreativeTab(tabSatellite).setTextureName("satcom:niobiumIngot");
 	public static Item rocketFuel = new Item(5005).setUnlocalizedName("rocketFuel").setCreativeTab(tabSatellite).setTextureName("satcom:rocketFuel").setMaxStackSize(1);
 	
-	static final Achievement satelliteAchieve = new Achievement(2001, "satelliteAchiev", 1, -2, Satellite, null).registerAchievement();
-	static final Achievement moduleAchieve = new Achievement(2002, "moduleAchiev", 0, 0, module, null).registerAchievement();
-	
-	public static AchievementPage satComPage = new AchievementPage("SatCom", satelliteAchieve, moduleAchieve);
-	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-		LanguageRegistry.instance().addStringLocalization("achievement.satelliteAchiev", "Build a satellite!");
-		LanguageRegistry.instance().addStringLocalization("achievement.satelliteAchiev.desc", "en_US", "3 niobium ingot in top and bottom, redstone in sides and module in center");
 		
-		satComPage.registerAchievementPage(satComPage);
-		GameRegistry.registerCraftingHandler(new CraftingHandler());
 		
 		GameRegistry.registerBlock(NiobiumOre, "niobiumOre");
         LanguageRegistry.addName(NiobiumOre, "Niobium Ore");
@@ -110,7 +101,7 @@ public class SatCom {
         CraftingManager.getInstance().addRecipe(new ItemStack(rocketFuel), "GRG", "RTR", "GRG", 'R', Item.redstone,'G', Item.gunpowder, 'T', Item.ghastTear);
         
         LanguageRegistry.addName(module, "Module");
-        LanguageRegistry.addName(moduleLaser, "Camera Module");
+        LanguageRegistry.addName(moduleLaser, "Laser Module");
         LanguageRegistry.addName(moduleWeather, "Cloud Destroyer Module");
         LanguageRegistry.addName(moduleWireless, "Wireless Module");
         CraftingManager.getInstance().addRecipe(new ItemStack(module), "CGC","GRG","CGC", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);

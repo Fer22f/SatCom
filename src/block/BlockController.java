@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,6 +32,13 @@ public class BlockController extends BlockContainer {
 		this.setCreativeTab(SatCom.tabSatellite);
 		this.setTextureName("satcom:controller");
 	}
+	
+	public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+		TileEntityController tile = (TileEntityController)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
+				
+        return tile.redstonePower ? 15 : 0;
+    }
 	
 	@SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
