@@ -16,6 +16,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import fer22f.mods.satcom.block.BlockController;
 import fer22f.mods.satcom.block.BlockNiobiumOre;
 import fer22f.mods.satcom.block.BlockNiobiumBlock;
 import fer22f.mods.satcom.block.BlockRocketLauncher;
@@ -44,6 +45,7 @@ public class SatCom {
 	public static Block Antenna = new BlockAntenna(502);
 	public static Block NiobiumBlock = new BlockNiobiumBlock(503);
 	public static Block RocketLauncher = new BlockRocketLauncher(504);
+	public static Block Controller = new BlockController(505);
 		
 	public static Item module = new Item(5000).setUnlocalizedName("module").setCreativeTab(tabSatellite).setTextureName("satcom:module").setMaxStackSize(1);
 	public static Item moduleCamera = new Item(5001).setUnlocalizedName("moduleCamera").setCreativeTab(tabSatellite).setTextureName("satcom:moduleCamera").setMaxStackSize(1);
@@ -74,6 +76,8 @@ public class SatCom {
         LanguageRegistry.addName(Antenna, "Antenna");
         CraftingManager.getInstance().addRecipe(new ItemStack(Antenna), "I I", "IRI", "III", 'I', Item.ingotIron, 'R', Item.redstone);
         
+        GameRegistry.registerBlock(Controller, "controller");
+        
         GameRegistry.registerBlock(NiobiumBlock, "niobiumBlock");
         LanguageRegistry.addName(NiobiumBlock, "Niobium Block");
         CraftingManager.getInstance().addRecipe(new ItemStack(NiobiumBlock), "XXX", "XXX", "XXX", 'X', niobiumIngot);
@@ -89,7 +93,7 @@ public class SatCom {
         CraftingManager.getInstance().addRecipe(new ItemStack(rocketFuel), "GRG", "RTR", "GRG", 'R', Item.redstone,'G', Item.gunpowder, 'T', Item.ghastTear);
         
         LanguageRegistry.addName(module, "Module");
-        LanguageRegistry.addName(moduleGPS, "GPS Module");
+        LanguageRegistry.addName(moduleCamera, "Camera Module");
         LanguageRegistry.addName(moduleWeather, "Cloud Destroyer Module");
         LanguageRegistry.addName(moduleWireless, "Wireless Module");
         CraftingManager.getInstance().addRecipe(new ItemStack(module), "CGC","GRG","CGC", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);

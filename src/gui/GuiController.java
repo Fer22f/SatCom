@@ -6,7 +6,7 @@ import java.io.DataOutputStream;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
-import fer22f.mods.satcom.tile.TileEntitySatellite;
+import fer22f.mods.satcom.tile.TileEntityController;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -16,14 +16,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiSatellite extends GuiContainer {
+public class GuiController extends GuiContainer {
 
-	private static final ResourceLocation satelliteGuiTexture = new ResourceLocation("satcom","textures/gui/satellite.png");
-    private TileEntitySatellite satellite;
+	private static final ResourceLocation controllerGuiTexture = new ResourceLocation("satcom","textures/gui/controller.png");
+    private TileEntityController controller;
 	
-	public GuiSatellite(InventoryPlayer inventory, TileEntitySatellite tile) {
-		super(new ContainerSatellite(inventory, tile));
-		this.satellite = tile;
+	public GuiController(InventoryPlayer inventory, TileEntityController tile) {
+		super(new ContainerController(inventory, tile));
+		this.controller = tile;
 	}
 	
 	public void initGui()
@@ -41,37 +41,33 @@ public class GuiSatellite extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
         this.fontRenderer.drawString("Satellite", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
         this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
-        
-        this.fontRenderer.drawString(satellite.ID + "",
-        		(11 - this.fontRenderer.getStringWidth(satellite.ID + "") / 2) + 77,
-        		26, 4210752);
 	}
 		
 	protected void actionPerformed(GuiButton par1GuiButton)
     {
 		if (par1GuiButton.id == 0)
         {
-        	if (satellite.ID > 0)
+        	if (controller.ID > 0)
         	{
-        		satellite.ID -= 1;
+        		controller.ID -= 1;
         	}
         } else if (par1GuiButton.id == 1)
         {
-        	if (satellite.ID < 999)
+        	if (controller.ID < 999)
         	{
-        		satellite.ID += 1;
+        		controller.ID += 1;
         	}
         } else if (par1GuiButton.id == 2)
         {
-        	if (satellite.ID > 9)
+        	if (controller.ID > 9)
         	{
-        		satellite.ID -= 10;
+        		controller.ID -= 10;
         	}
         } else if (par1GuiButton.id == 3)
         {
-        	if (satellite.ID < 990)
+        	if (controller.ID < 990)
         	{
-        		satellite.ID += 10;
+        		controller.ID += 10;
         	}
         }
         
@@ -82,10 +78,10 @@ public class GuiSatellite extends GuiContainer {
 	    ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 	    DataOutputStream outputStream = new DataOutputStream(bos);
 	    try {
-	        outputStream.writeInt(satellite.xCoord);
-	        outputStream.writeInt(satellite.yCoord);
-	        outputStream.writeInt(satellite.zCoord);
-	        outputStream.writeInt(satellite.ID);
+	        outputStream.writeInt(controller.xCoord);
+	        outputStream.writeInt(controller.yCoord);
+	        outputStream.writeInt(controller.zCoord);
+	        outputStream.writeInt(controller.ID);
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
 	    }
@@ -101,7 +97,7 @@ public class GuiSatellite extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(satelliteGuiTexture);
+        this.mc.getTextureManager().bindTexture(controllerGuiTexture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);

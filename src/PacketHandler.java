@@ -14,6 +14,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
+import fer22f.mods.satcom.tile.TileEntityController;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
 public class PacketHandler implements IPacketHandler {
@@ -47,6 +48,13 @@ public class PacketHandler implements IPacketHandler {
 	                	s.ID = newID;
 	                	
 	                	p.worldObj.markBlockForUpdate(X, Y, Z);	              
+	                } else if (t instanceof TileEntityController)
+	                {
+	                	TileEntityController c = (TileEntityController)t;
+	                	
+	                	c.ID = newID;
+	                	
+	                	p.worldObj.markBlockForUpdate(X, Y, Z);
 	                }
 	                
 	        } catch (IOException e) {
