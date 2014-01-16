@@ -131,10 +131,7 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack par1ItemStack) {
-		if (par1ItemStack.itemID == SatCom.moduleGPS.itemID ||
-	    		par1ItemStack.itemID == SatCom.moduleLaser.itemID ||
-	    		par1ItemStack.itemID == SatCom.moduleWireless.itemID ||
-	    		par1ItemStack.itemID == SatCom.module.itemID)
+		if (SatCom.isModule(par1ItemStack))
 	    	{
 	    		return true;
 	    	}

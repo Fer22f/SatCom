@@ -32,9 +32,15 @@ public class GuiRocketLauncher extends GuiContainer {
         } else if (!rocketLauncher.structureOk)
         {
         	informativeText = "Structure is wrong";
-        } else if (rocketLauncher.getStackInSlot(0) == null && rocketLauncher.getStackInSlot(0).itemID != SatCom.rocketFuel.itemID)
+        } else if (!rocketLauncher.hasFuel)
         {
         	informativeText = "Place the fuel";
+        } else if (!rocketLauncher.IDavaliable)
+        {
+        	informativeText = "ID not avaliable, try another ID";
+        } else if (!rocketLauncher.hasModule)
+        {
+        	informativeText = "Place a module in the satellite";
         } else {
         	informativeText = "Put a redstone signal to start";
         }

@@ -57,11 +57,7 @@ public class ContainerSatellite extends Container {
                     return null;
                 }
             }
-            else if ((itemstack1.itemID == SatCom.moduleGPS.itemID ||
-            		itemstack1.itemID == SatCom.moduleLaser.itemID ||
-            		itemstack1.itemID == SatCom.moduleWireless.itemID ||
-            		itemstack1.itemID == SatCom.module.itemID) && 
-            		!this.mergeItemStack(itemstack1, 0, 9, false))
+            else if (SatCom.isModule(itemstack1) && !this.mergeItemStack(itemstack1, 0, 9, false))
             {
                 return null;
             }

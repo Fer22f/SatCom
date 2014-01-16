@@ -22,6 +22,8 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 	public boolean correctDimension;
 	public boolean IDavaliable;
 	public boolean structureOk;
+	public boolean hasFuel;
+	public boolean hasModule;
 	
 	@Override
 	public int getSizeInventory() {
@@ -91,14 +93,18 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
             	{
             		check = false;
             		break;
-            	}
+            	}           	
+            	
             }
 			
+				this.hasModule = s.getStackInSlot(0) != null;
 			}
 			
 			this.IDavaliable = check;
 			
 			this.correctDimension = this.worldObj.provider.dimensionId == 0;
+			
+			this.hasFuel = this.contents[0] != null && this.contents[0].itemID == SatCom.rocketFuel.itemID;
 			
 			this.cooldown = 5 * 20;
 		} else {
@@ -203,7 +209,12 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
+		if (itemstack != null && itemstack.itemID == SatCom.rocketFuel.itemID)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)

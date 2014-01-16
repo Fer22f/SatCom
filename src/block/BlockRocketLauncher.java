@@ -114,7 +114,7 @@ public class BlockRocketLauncher extends BlockContainer {
 		boolean flag = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
 		TileEntityRocketLauncher r = (TileEntityRocketLauncher)par1World.getBlockTileEntity(par2, par3, par4);
 		
-		if (flag && r.correctDimension && r.structureOk && r.IDavaliable && r.getStackInSlot(0) != null && r.getStackInSlot(0).itemID == SatCom.rocketFuel.itemID)
+		if (flag && r.correctDimension && r.structureOk && r.IDavaliable && r.hasFuel && r.hasModule)
 		{
 			r.setInventorySlotContents(0, null);
 			par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));

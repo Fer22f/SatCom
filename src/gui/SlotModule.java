@@ -32,10 +32,7 @@ class SlotModule extends Slot
      */
     public boolean isItemValid(ItemStack par1ItemStack)
     {
-    	if (par1ItemStack.itemID == SatCom.moduleGPS.itemID ||
-    		par1ItemStack.itemID == SatCom.moduleLaser.itemID ||
-    		par1ItemStack.itemID == SatCom.moduleWireless.itemID ||
-    		par1ItemStack.itemID == SatCom.module.itemID)
+    	if (SatCom.isModule(par1ItemStack))
     	{
     		return true;
     	}

@@ -46,8 +46,8 @@ public class SatCom {
 	public static Block RocketLauncher = new BlockRocketLauncher(504);
 		
 	public static Item module = new Item(5000).setUnlocalizedName("module").setCreativeTab(tabSatellite).setTextureName("satcom:module").setMaxStackSize(1);
-	public static Item moduleGPS = new Item(5001).setUnlocalizedName("moduleGPS").setCreativeTab(tabSatellite).setTextureName("satcom:moduleGPS").setMaxStackSize(1);
-	public static Item moduleLaser = new Item(5002).setUnlocalizedName("moduleLaser").setCreativeTab(tabSatellite).setTextureName("satcom:moduleLaser").setMaxStackSize(1);
+	public static Item moduleCamera = new Item(5001).setUnlocalizedName("moduleCamera").setCreativeTab(tabSatellite).setTextureName("satcom:moduleCamera").setMaxStackSize(1);
+	public static Item moduleWeather = new Item(5002).setUnlocalizedName("moduleWeather").setCreativeTab(tabSatellite).setTextureName("satcom:moduleWeather").setMaxStackSize(1);
 	public static Item moduleWireless = new Item(5003).setUnlocalizedName("moduleWireless").setCreativeTab(tabSatellite).setTextureName("satcom:moduleWireless").setMaxStackSize(1);
 	public static Item niobiumIngot = new Item(5004).setUnlocalizedName("niobiumIngot").setCreativeTab(tabSatellite).setTextureName("satcom:niobiumIngot");
 	public static Item rocketFuel = new Item(5005).setUnlocalizedName("rocketFuel").setCreativeTab(tabSatellite).setTextureName("satcom:rocketFuel").setMaxStackSize(1);
@@ -90,16 +90,31 @@ public class SatCom {
         
         LanguageRegistry.addName(module, "Module");
         LanguageRegistry.addName(moduleGPS, "GPS Module");
-        LanguageRegistry.addName(moduleLaser, "Laser Module");
+        LanguageRegistry.addName(moduleWeather, "Cloud Destroyer Module");
         LanguageRegistry.addName(moduleWireless, "Wireless Module");
         CraftingManager.getInstance().addRecipe(new ItemStack(module), "CGC","GRG","CGC", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);
         CraftingManager.getInstance().addRecipe(new ItemStack(module), "GCG","CRC","GCG", 'C', new ItemStack(Item.dyePowder, 1, 2), 'G', Item.goldNugget, 'R', Item.redstone);
-        CraftingManager.getInstance().addRecipe(new ItemStack(moduleGPS), " L ", "LML", " L ", 'M', module, 'L', new ItemStack(Item.dyePowder, 1, 4));
-        CraftingManager.getInstance().addRecipe(new ItemStack(moduleLaser), "RDR", "DMD", "RDR", 'M', module, 'D', Item.diamond, 'R', Item.redstone);
-        CraftingManager.getInstance().addRecipe(new ItemStack(moduleLaser), "DRD", "RMR", "DRD", 'M', module, 'D', Item.diamond, 'R', Item.redstone);
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleCamera), " L ", "LML", " L ", 'M', module, 'L', new ItemStack(Item.dyePowder, 1, 4));
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleWeather), "RDR", "DMD", "RDR", 'M', module, 'D', Item.bucketWater, 'R', Item.redstone);
+        CraftingManager.getInstance().addRecipe(new ItemStack(moduleWeather), "DRD", "RMR", "DRD", 'M', module, 'D', Item.bucketWater, 'R', Item.redstone);
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "TRT", "RMR", "TRT", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
         CraftingManager.getInstance().addRecipe(new ItemStack(moduleWireless), "RTR", "TMT", "RTR", 'M', module, 'R', Item.redstone, 'T', Block.torchRedstoneActive);
 	
         proxy.preInit();
+	}
+	
+	public static boolean isModule(ItemStack m)
+	{
+		if (m == null)
+			return false;
+		
+		if (m.itemID == SatCom.moduleCamera.itemID ||
+        		m.itemID == SatCom.moduleWeather.itemID ||
+        		m.itemID == SatCom.moduleWireless.itemID ||
+        		m.itemID == SatCom.module.itemID)
+		{
+			return true;
+		}
+		return false;
 	}
 }
