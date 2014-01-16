@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
@@ -82,6 +83,30 @@ public class PacketHandler implements IPacketHandler {
                 {
                 w.spawnParticle("hugeexplosion", X, Y + k, Z, 0.0F, 0.0F, 0.0F);
                 }
+                
+	        } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+		} else if (packet.channel == "updateSatelliteList")
+		{
+			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+		       	        
+	        try {
+                int size = inputStream.readInt();
+                WorldHandler.satellitesList.clear();
+                
+                for (int k = 0; k < size; k++)
+                {
+                	int ID = inputStream.readInt();
+                	String module = inputStream.readUTF();
+                	NBTTagCompound n = new NBTTagCompound();
+                	n.setInteger("ID", ID);
+                	n.setString("Module", module);
+                	
+                	WorldHandler.satellitesList.add(n);
+                }                              
+                                                
                 
 	        } catch (IOException e) {
                 e.printStackTrace();

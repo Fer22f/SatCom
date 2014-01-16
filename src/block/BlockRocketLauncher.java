@@ -20,6 +20,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fer22f.mods.satcom.SatCom;
@@ -84,10 +85,35 @@ public class BlockRocketLauncher extends BlockContainer {
 			sat.setInteger("ID", ID);
 			sat.setString("Module", Module.substring(5));
 			
-			WorldHandler.satellitesList.add(sat);
+			WorldHandler.satellitesList.add(sat);	
 			
 			sendChangeToClient(explosionX, explosionY, explosionZ);
+			sendUpdateSatelliteToClient();
 		}
+	}
+	
+	public void sendUpdateSatelliteToClient()
+	{   	
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+	    DataOutputStream outputStream = new DataOutputStream(bos);
+	    try {
+	        outputStream.writeInt(WorldHandler.satellitesList.size());
+	        for (int k = 0; k < WorldHandler.satellitesList.size(); k++)
+	    	{
+	        	outputStream.writeInt(WorldHandler.satellitesList.get(k).getInteger("ID"));
+	        	outputStream.writeUTF(WorldHandler.satellitesList.get(k).getString("Module"));
+	    	}
+	        
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	               
+	    Packet250CustomPayload packet = new Packet250CustomPayload();
+	    packet.channel = "updateSatelliteList";
+	    packet.data = bos.toByteArray();
+	    packet.length = bos.size();
+
+	    PacketDispatcher.sendPacketToAllPlayers(packet);
 	}
 	
 	public void sendChangeToClient(int X, int Y, int Z){

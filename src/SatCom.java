@@ -30,7 +30,7 @@ import fer22f.mods.satcom.tile.TileEntitySatellite;
 
 @Mod(modid="SatCom", name="SatCom", version="0.0.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false,
-channels={"IDUpdate","rocketexplosion"}, packetHandler = PacketHandler.class)
+channels={"IDUpdate","rocketexplosion","updateSatelliteList"}, packetHandler = PacketHandler.class)
 public class SatCom {
 
 	@Instance(value = "SatCom")

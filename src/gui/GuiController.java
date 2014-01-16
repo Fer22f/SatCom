@@ -35,7 +35,8 @@ public class GuiController extends GuiContainer {
         this.buttonList.add(new GuiButton(0, 60  + k, 19 + l, 17, 20, "-"));
         this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
         this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
-        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));
+        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));       
+        
     }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
