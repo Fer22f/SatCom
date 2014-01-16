@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
+import fer22f.mods.satcom.WorldHandler;
 import fer22f.mods.satcom.tile.TileEntityController;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -35,8 +36,7 @@ public class GuiController extends GuiContainer {
         this.buttonList.add(new GuiButton(0, 60  + k, 19 + l, 17, 20, "-"));
         this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
         this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
-        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));       
-        
+        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));  
     }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
@@ -46,6 +46,10 @@ public class GuiController extends GuiContainer {
         this.fontRenderer.drawString(controller.ID + "",
         		(11 - this.fontRenderer.getStringWidth(controller.ID + "") / 2) + 77,
         		26, 4210752);
+        
+        this.fontRenderer.drawString(controller.module,
+        		(11 - this.fontRenderer.getStringWidth(controller.module) / 2) + 77,
+        		50, 4210752);
 	}
 		
 	protected void actionPerformed(GuiButton par1GuiButton)
@@ -76,6 +80,7 @@ public class GuiController extends GuiContainer {
         	}
         }
         
+		controller.updateModuleName();
         sendChangeToServer();
     }
 	

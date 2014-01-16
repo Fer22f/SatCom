@@ -88,7 +88,7 @@ public class PacketHandler implements IPacketHandler {
                 e.printStackTrace();
                 return;
             }
-		} else if (packet.channel == "updateSatelliteList")
+		} else if (packet.channel == "updateSatellite")
 		{
 			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 		       	        

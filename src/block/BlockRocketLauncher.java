@@ -109,7 +109,7 @@ public class BlockRocketLauncher extends BlockContainer {
 	    }
 	               
 	    Packet250CustomPayload packet = new Packet250CustomPayload();
-	    packet.channel = "updateSatelliteList";
+	    packet.channel = "updateSatellite";
 	    packet.data = bos.toByteArray();
 	    packet.length = bos.size();
 
