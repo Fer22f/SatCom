@@ -39,7 +39,7 @@ public class GuiController extends GuiContainer {
         this.buttonList.add(new GuiButton(0, 60  + k, 19 + l, 17, 20, "-"));
         this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
         this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
-        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));  
+        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));
     }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
@@ -50,9 +50,27 @@ public class GuiController extends GuiContainer {
         		(11 - this.fontRenderer.getStringWidth(controller.ID + "") / 2) + 77,
         		26, 4210752);
         
+        String informativeText = "";
+        
+        if (!controller.hasAntenna)
+        {
+        	informativeText = "There is no antenna!";
+        } else if (controller.module.equalsIgnoreCase("module")) {
+        	informativeText = "This is a generic module";
+        } else if (controller.module.equalsIgnoreCase("moduleWeather")) {
+        	informativeText = "A signal will stop the rain";
+        } else if (controller.module.equalsIgnoreCase("moduleWireless")) {
+        	informativeText = "Second ID";
+        } else if (controller.module.equalsIgnoreCase("moduleCamera")) {
+        	informativeText = "Give the map to fill";
+        }
+        
+        this.fontRenderer.drawString(informativeText, 6 + 17, 49 + 4, 4210752);
+                
         itemRenderer.zLevel = 100.0F;
-        if (controller.module != "")
-        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.getTextureManager(), new ItemStack(SatCom.getItemfromModuleName(controller.module)), 79, 40);
+        if (controller.module != "" && controller.hasAntenna)
+        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.getTextureManager(), new ItemStack(SatCom.getItemfromModuleName(controller.module)), 10, 20);
+        
 	}
 		
 	protected void actionPerformed(GuiButton par1GuiButton)

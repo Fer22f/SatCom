@@ -19,6 +19,7 @@ public class TileEntityController extends TileEntity {
 	public int ID;
 	public String module;
 	private int cooldown;
+	public boolean hasAntenna;
 	
 	public void updateModuleName()
 	{
@@ -38,7 +39,13 @@ public class TileEntityController extends TileEntity {
 	{
 		if (cooldown == 0)
 		{
-			updateModuleName();
+			if (worldObj.getBlockId(this.xCoord, this.yCoord + 1, this.zCoord) == SatCom.Antenna.blockID)
+			{
+				updateModuleName();
+				hasAntenna = true;
+			} else {
+				hasAntenna = false;
+			}
 			cooldown = 10 * 20;			
 		} else {
 			cooldown -= 1;

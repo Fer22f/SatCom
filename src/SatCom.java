@@ -137,7 +137,6 @@ public class SatCom {
 		{
 			return moduleWeather;
 		} else {		
-			System.out.println(name);
 			return module;
 		}
 	}
