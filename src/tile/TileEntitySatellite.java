@@ -164,8 +164,7 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
         }
        
        	this.ID = tag.getInteger("ID");
-       	System.out.println("Read from NBT! ID: " + this.ID + " isRemote? " +  FMLCommonHandler.instance().getEffectiveSide());
-    }
+      }
 
     public void writeToNBT(NBTTagCompound tag)
     {
@@ -190,7 +189,6 @@ public class TileEntitySatellite extends TileEntity implements IInventory {
             tag.setString("CustomName", this.customName);
         }
         
-        System.out.println("Write to NBT! ID: " + this.ID + " isRemote? " +  FMLCommonHandler.instance().getEffectiveSide());
         tag.setInteger("ID", this.ID);
     }
 

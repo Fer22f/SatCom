@@ -33,9 +33,10 @@ public class GuiSatellite extends GuiContainer {
         int l = (this.height - this.ySize) / 2;
         super.initGui();
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, 60 + k, 19 + l, 17, 20, "-"));
-        this.buttonList.add(new GuiButton(1, 98 + k, 19 + l, 17, 20, "+"));
-        this.buttonList.add(new GuiButton(0, 43 + k, 19 + l, 17, 20, "--"));
+        this.buttonList.add(new GuiButton(0, 60  + k, 19 + l, 17, 20, "-"));
+        this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
+        this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
+        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));
     }
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
@@ -51,15 +52,27 @@ public class GuiSatellite extends GuiContainer {
     {
 		if (par1GuiButton.id == 0)
         {
-        	if (satellite.ID > 1)
+        	if (satellite.ID > 0)
         	{
         		satellite.ID -= 1;
         	}
         } else if (par1GuiButton.id == 1)
         {
-        	if (satellite.ID < 998)
+        	if (satellite.ID < 999)
         	{
         		satellite.ID += 1;
+        	}
+        } else if (par1GuiButton.id == 2)
+        {
+        	if (satellite.ID > 9)
+        	{
+        		satellite.ID -= 10;
+        	}
+        } else if (par1GuiButton.id == 3)
+        {
+        	if (satellite.ID < 990)
+        	{
+        		satellite.ID += 10;
         	}
         }
         
