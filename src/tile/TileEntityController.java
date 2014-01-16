@@ -50,7 +50,7 @@ public class TileEntityController extends TileEntity {
 				hasAntenna = false;
 			}
 			
-			cooldown = 10 * 20;
+			cooldown = 5 * 20;
 		} else {
 			cooldown -= 1;
 		}

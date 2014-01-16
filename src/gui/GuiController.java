@@ -40,12 +40,7 @@ public class GuiController extends GuiContainer {
         this.buttonList.add(new GuiButton(0, 60  + k, 19 + l, 17, 20, "-"));
         this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
         this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
-        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));
-       
-        this.buttonList.add(new GuiButton(4, 60  + k, 45 + l, 17, 20, "-"));
-        this.buttonList.add(new GuiButton(5, 98  + k, 45 + l, 17, 20, "+"));
-        this.buttonList.add(new GuiButton(6, 41  + k, 45 + l, 20, 20, "--"));
-        this.buttonList.add(new GuiButton(7, 113 + k, 45 + l, 20, 20, "++"));
+        this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));     
     }
 	
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
@@ -62,16 +57,18 @@ public class GuiController extends GuiContainer {
         {
         	informativeText = "There is no antenna!";
         } else if (controller.module.equalsIgnoreCase("module")) {
-        	informativeText = "This is a generic module";
+        	informativeText = "Nothing";
         } else if (controller.module.equalsIgnoreCase("moduleWeather")) {
-        	informativeText = "A signal will stop the rain";
+        	informativeText = "Stop the rain";
         } else if (controller.module.equalsIgnoreCase("moduleWireless")) {
-        	informativeText = "Second ID";
-        } else if (controller.module.equalsIgnoreCase("moduleCamera")) {
-        	
+        	informativeText = "Send or receive signal";
+        } else if (controller.module.equalsIgnoreCase("moduleLaser")) {
+        	informativeText = "Drill two blocks in front";
+        } else {
+        	informativeText = "?";
         }
         
-      //  this.fontRenderer.drawString(informativeText, 6 + 17, 53, 4210752);
+        this.fontRenderer.drawString(informativeText, this.xSize / 2 - this.fontRenderer.getStringWidth(informativeText) / 2, 40, 4210752);
                 
         itemRenderer.zLevel = 100.0F;
         if (controller.module != "" && controller.hasAntenna)
