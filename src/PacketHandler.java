@@ -65,9 +65,7 @@ public class PacketHandler implements IPacketHandler {
                 X = inputStream.readInt();
                 Y = inputStream.readInt();
                 Z = inputStream.readInt();
-                
-                System.out.println(X + " " + Y + " " + Z);
-                
+                                
                 EntityPlayer p = (EntityPlayer)player;
                 
                 World w = p.worldObj;

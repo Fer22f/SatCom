@@ -12,6 +12,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
@@ -22,6 +23,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fer22f.mods.satcom.SatCom;
+import fer22f.mods.satcom.WorldHandler;
 import fer22f.mods.satcom.tile.TileEntityRocketLauncher;
 import fer22f.mods.satcom.tile.TileEntitySatellite;
 
@@ -55,19 +57,37 @@ public class BlockRocketLauncher extends BlockContainer {
 		case 1: addX = 1; break;
 		case 2: addZ = 1; break;
 		case 3: addX = -1;
-		}	
+		}
 		
-		world.setBlockToAir(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
-		world.setBlockToAir(X + (addX * 2), Y + 1, Z + (addZ * 2));
-		world.setBlockToAir(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
-   
-		int explosionX = X + (addX * 2);
-		int explosionY = Y + 1;
-		int explosionZ = Z + (addZ * 2);
+		TileEntity s = (TileEntity)world.getBlockTileEntity(X + (addX * 2), Y + 1, Z + (addZ * 2));
+				
+		if (s != null && s instanceof TileEntitySatellite)
+		{
+			TileEntitySatellite r = (TileEntitySatellite)s;
+			int ID = r.ID;
+			String Module = r.getStackInSlot(0) == null ? "" : r.getStackInSlot(0).getUnlocalizedName();
+			
+			world.setBlockToAir(X + (addX == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
 		
-		world.playSoundEffect(X, Y, Z, "random.explode", 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			world.setBlockToAir(X + (addX * 2), Y + 1, Z + (addZ * 2));
+		
+			world.setBlockToAir(X + (addX == 0 ? -((addZ) + (addX)) : ((addZ * 2) + (addX * 2))), Y + 1, Z + (addZ == 0 ? ((addZ) + (addX)) : ((addZ * 2) + (addX * 2))));
+		
+			int explosionX = X + (addX * 2);
+			int explosionY = Y + 1;
+			int explosionZ = Z + (addZ * 2);
+		
+			world.playSoundEffect(X, Y, Z, "random.explode", 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-		sendChangeToClient(explosionX, explosionY, explosionZ);
+			NBTTagCompound sat = new NBTTagCompound();
+			
+			sat.setInteger("ID", ID);
+			sat.setString("Module", Module.substring(5));
+			
+			WorldHandler.satellitesList.add(sat);
+			
+			sendChangeToClient(explosionX, explosionY, explosionZ);
+		}
 	}
 	
 	public void sendChangeToClient(int X, int Y, int Z){
@@ -94,8 +114,11 @@ public class BlockRocketLauncher extends BlockContainer {
 		boolean flag = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4);
 		TileEntityRocketLauncher r = (TileEntityRocketLauncher)par1World.getBlockTileEntity(par2, par3, par4);
 		
-		if (flag && r.everythingIsOk)
-		par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
+		if (flag && r.correctDimension && r.structureOk && r.IDavaliable && r.getStackInSlot(0) != null && r.getStackInSlot(0).itemID == SatCom.rocketFuel.itemID)
+		{
+			r.setInventorySlotContents(0, null);
+			par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
+		}
     }
 	
 	@SideOnly(Side.CLIENT)

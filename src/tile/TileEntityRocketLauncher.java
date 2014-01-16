@@ -3,6 +3,7 @@ package fer22f.mods.satcom.tile;
 import java.util.Random;
 
 import fer22f.mods.satcom.SatCom;
+import fer22f.mods.satcom.WorldHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,7 +19,9 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 	public Boolean[] structure = new Boolean[18];
 	private int cooldown;
 	protected String customName;
-	public boolean everythingIsOk;
+	public boolean correctDimension;
+	public boolean IDavaliable;
+	public boolean structureOk;
 	
 	@Override
 	public int getSizeInventory() {
@@ -71,7 +74,31 @@ public class TileEntityRocketLauncher extends TileEntity implements IInventory {
 				check = this.structure[x] & check;
 			}
 			
-			everythingIsOk = check && (contents[0] != null && contents[0].itemID == SatCom.rocketFuel.itemID);
+			this.structureOk = check;
+			
+			check = true;
+			
+			TileEntity t = this.worldObj.getBlockTileEntity(X + (addX * 2), Y + 1, Z + (addZ * 2));
+			
+			if (t != null && t instanceof TileEntitySatellite)
+			{
+				TileEntitySatellite s = (TileEntitySatellite)t;
+				
+			for (int l = 0; l < WorldHandler.satellitesList.size(); l++)
+            {
+            	NBTTagCompound n = WorldHandler.satellitesList.get(l);
+            	if (n.getInteger("ID") == s.ID)
+            	{
+            		check = false;
+            		break;
+            	}
+            }
+			
+			}
+			
+			this.IDavaliable = check;
+			
+			this.correctDimension = this.worldObj.provider.dimensionId == 0;
 			
 			this.cooldown = 5 * 20;
 		} else {
