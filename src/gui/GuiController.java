@@ -40,11 +40,25 @@ public class GuiController extends GuiContainer {
         this.buttonList.add(new GuiButton(1, 98  + k, 19 + l, 17, 20, "+"));
         this.buttonList.add(new GuiButton(2, 41  + k, 19 + l, 20, 20, "--"));
         this.buttonList.add(new GuiButton(3, 113 + k, 19 + l, 20, 20, "++"));
+        
+        if (controller.module.equalsIgnoreCase("moduleWeather"))
+        this.buttonList.add(new GuiButton(4, 113 + k, 53, 20, 20, "R"));
     }
+	
+	private void drawMap(int x1, int y1)
+	{
+		for (int x = 0; x < 20; x++)
+		{
+			for (int y = 0; y < 20; y++)
+			{
+				this.drawRect(x + x1, y + y1, x + x1, y + y1, controller.topBlocks[x][y].colorValue);
+			}
+		}
+	}
 
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
         this.fontRenderer.drawString("Controller", this.xSize / 2 - this.fontRenderer.getStringWidth("Satellite") / 2, 6, 4210752);
-        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);       
         
         this.fontRenderer.drawString(controller.ID + "",
         		(11 - this.fontRenderer.getStringWidth(controller.ID + "") / 2) + 77,
@@ -58,6 +72,8 @@ public class GuiController extends GuiContainer {
         } else if (controller.module.equalsIgnoreCase("module")) {
         	informativeText = "This is a generic module";
         } else if (controller.module.equalsIgnoreCase("moduleWeather")) {
+        	
+        	drawMap(5, 20);
         	informativeText = "A signal will stop the rain";
         } else if (controller.module.equalsIgnoreCase("moduleWireless")) {
         	informativeText = "Second ID";
@@ -65,11 +81,11 @@ public class GuiController extends GuiContainer {
         	informativeText = "Give the map to fill";
         }
         
-        this.fontRenderer.drawString(informativeText, 6 + 17, 49 + 4, 4210752);
+      //  this.fontRenderer.drawString(informativeText, 6 + 17, 53, 4210752);
                 
         itemRenderer.zLevel = 100.0F;
         if (controller.module != "" && controller.hasAntenna)
-        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.getTextureManager(), new ItemStack(SatCom.getItemfromModuleName(controller.module)), 10, 20);
+        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.getTextureManager(), new ItemStack(SatCom.getItemfromModuleName(controller.module)), 13, 21);
         
 	}
 		
@@ -100,8 +116,20 @@ public class GuiController extends GuiContainer {
         		controller.ID += 10;
         	}
         }
-        
-		controller.updateModuleName();
+				
+		controller.updateModuleName();		
+
+		if (controller.module.equalsIgnoreCase("moduleWeather"))
+		{
+	        Object o = this.buttonList.get(4);
+	        GuiButton g = (GuiButton)o;
+	        g.drawButton = true;
+		} else {
+			Object o = this.buttonList.get(4);
+	        GuiButton g = (GuiButton)o;
+	        g.drawButton = false;
+		}
+		
         sendChangeToServer();
     }
 	

@@ -4,6 +4,8 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import fer22f.mods.satcom.SatCom;
 import fer22f.mods.satcom.WorldHandler;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -13,6 +15,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityController extends TileEntity {
 
@@ -20,6 +23,29 @@ public class TileEntityController extends TileEntity {
 	public String module;
 	private int cooldown;
 	public boolean hasAntenna;
+	public MapColor[][] topBlocks = new MapColor[20][20];
+	
+	public static int findTopBlockBelowY(World world, int x, int z, int y)
+	  {
+	    int id = world.getBlockId(x, y, z);
+	    while ((id == 0) && (y >= 0)) {
+	      y--;
+	      id = world.getBlockId(x, y, z);
+	    }
+	    return y;
+	  }
+	
+	private void getTopBlocks(World world, int x, int y, int z)
+	  {
+	    int range = 0;
+	    int maxrange = 10;
+	    for (int i = -range; i <= range; i++)
+	      for (int j = -range; j <= range; j++) {
+	        int topy = findTopBlockBelowY(world, x + i, z + j, 255);
+	        Material m = world.getBlockMaterial(x + i, topy, z + j);
+	        this.topBlocks[(i + range)][(j + range)] = m.materialMapColor;
+	      }
+	  }
 	
 	public void updateModuleName()
 	{
@@ -46,6 +72,12 @@ public class TileEntityController extends TileEntity {
 			} else {
 				hasAntenna = false;
 			}
+			
+			if (this.module.equalsIgnoreCase("moduleCamera"))
+			{
+				getTopBlocks(this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			}
+			
 			cooldown = 10 * 20;			
 		} else {
 			cooldown -= 1;
