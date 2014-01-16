@@ -4,6 +4,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import fer22f.mods.satcom.SatCom;
 import fer22f.mods.satcom.WorldHandler;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,7 @@ public class TileEntityController extends TileEntity {
 	public String module;
 	private int cooldown;
 	public boolean hasAntenna;
+	public int progress;
 	
 	public void updateModuleName()
 	{
@@ -50,10 +52,34 @@ public class TileEntityController extends TileEntity {
 				hasAntenna = false;
 			}
 			
-			cooldown = 5 * 20;
+			if (module.equalsIgnoreCase("moduleLaser"))
+			{
+				int metadata = getBlockMetadata();
+				int addX = 0;
+				int addZ = 0;
+				
+				switch (metadata) {
+				case 0: addZ = -1; break;
+				case 1: addX = 1; break;
+				case 2: addZ = 1; break;
+				case 3: addX = -1;
+				}
+				
+				if (progress != 255 && worldObj.getBlockId(this.xCoord, this.yCoord, this.zCoord) != Block.bedrock.blockID)
+				{
+					worldObj.destroyBlock(this.xCoord + (addX * 2), 255 - progress, this.zCoord + (addZ * 2), true);		
+					progress = 0;
+				} else {
+					progress += 1;
+				}
+			}
+			
+			cooldown = 1 * 20;
 		} else {
 			cooldown -= 1;
 		}
+		
+		
 	}
 	
 	public Packet getDescriptionPacket() {

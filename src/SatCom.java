@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.stats.Achievement;
+import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -39,6 +41,7 @@ public class SatCom {
 	@SidedProxy(clientSide="fer22f.mods.satcom.ClientProxy", serverSide="fer22f.mods.satcom.CommonProxy")
 	public static CommonProxy proxy;
 	
+		
 	public static CreativeTabs tabSatellite = new CreativeTabSatellite();
 	
 	public static Block Satellite = new BlockSatellite(500);
@@ -55,8 +58,19 @@ public class SatCom {
 	public static Item niobiumIngot = new Item(5004).setUnlocalizedName("niobiumIngot").setCreativeTab(tabSatellite).setTextureName("satcom:niobiumIngot");
 	public static Item rocketFuel = new Item(5005).setUnlocalizedName("rocketFuel").setCreativeTab(tabSatellite).setTextureName("satcom:rocketFuel").setMaxStackSize(1);
 	
+	static final Achievement satelliteAchieve = new Achievement(2001, "satelliteAchiev", 1, -2, Satellite, null).registerAchievement();
+	static final Achievement moduleAchieve = new Achievement(2002, "moduleAchiev", 0, 0, module, null).registerAchievement();
+	
+	public static AchievementPage satComPage = new AchievementPage("SatCom", satelliteAchieve, moduleAchieve);
+	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+		LanguageRegistry.instance().addStringLocalization("achievement.satelliteAchiev", "Build a satellite!");
+		LanguageRegistry.instance().addStringLocalization("achievement.satelliteAchiev.desc", "en_US", "3 niobium ingot in top and bottom, redstone in sides and module in center");
+		
+		satComPage.registerAchievementPage(satComPage);
+		GameRegistry.registerCraftingHandler(new CraftingHandler());
+		
 		GameRegistry.registerBlock(NiobiumOre, "niobiumOre");
         LanguageRegistry.addName(NiobiumOre, "Niobium Ore");
         MinecraftForge.setBlockHarvestLevel(NiobiumOre, 2, "pickaxe", 2);

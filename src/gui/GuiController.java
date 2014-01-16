@@ -65,10 +65,10 @@ public class GuiController extends GuiContainer {
         } else if (controller.module.equalsIgnoreCase("moduleLaser")) {
         	informativeText = "Drill two blocks in front";
         } else {
-        	informativeText = "?";
+        	informativeText = "";
         }
         
-        this.fontRenderer.drawString(informativeText, this.xSize / 2 - this.fontRenderer.getStringWidth(informativeText) / 2, 40, 4210752);
+        this.fontRenderer.drawString(informativeText, this.xSize / 2 - this.fontRenderer.getStringWidth(informativeText) / 2, 50, 4210752);
                 
         itemRenderer.zLevel = 100.0F;
         if (controller.module != "" && controller.hasAntenna)

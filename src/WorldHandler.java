@@ -95,6 +95,7 @@ public class WorldHandler {
         	
             if(satelitesFile.exists())
             {
+            	satellitesList.clear();
                 DataInputStream din = new DataInputStream(new FileInputStream(satelitesFile));
                 sav = CompressedStreamTools.readCompressed(din);
                 
