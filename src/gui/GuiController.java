@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
+import fer22f.mods.satcom.SatCom;
 import fer22f.mods.satcom.WorldHandler;
 import fer22f.mods.satcom.tile.TileEntityController;
 import net.minecraft.client.gui.GuiButton;
@@ -14,6 +15,8 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ResourceLocation;
 
@@ -47,9 +50,9 @@ public class GuiController extends GuiContainer {
         		(11 - this.fontRenderer.getStringWidth(controller.ID + "") / 2) + 77,
         		26, 4210752);
         
-        this.fontRenderer.drawString(controller.module,
-        		(11 - this.fontRenderer.getStringWidth(controller.module) / 2) + 77,
-        		50, 4210752);
+        itemRenderer.zLevel = 100.0F;
+        if (controller.module != "")
+        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.getTextureManager(), new ItemStack(SatCom.getItemfromModuleName(controller.module)), 79, 40);
 	}
 		
 	protected void actionPerformed(GuiButton par1GuiButton)

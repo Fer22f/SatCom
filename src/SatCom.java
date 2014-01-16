@@ -124,4 +124,21 @@ public class SatCom {
 		}
 		return false;
 	}
+	
+	public static Item getItemfromModuleName(String name)
+	{
+		if (name.equalsIgnoreCase("moduleCamera"))
+		{
+			return moduleCamera;
+		} else if (name.equalsIgnoreCase("moduleWireless"))
+		{
+			return moduleWireless;
+		} else if (name.equalsIgnoreCase("moduleWeather"))
+		{
+			return moduleWeather;
+		} else {		
+			System.out.println(name);
+			return module;
+		}
+	}
 }
